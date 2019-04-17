@@ -20,6 +20,15 @@ def flush_input():
         termios.tcflush(sys.stdin, termios.TCIOFLUSH)
 
 
+def only_ini(intersec, tam, ini):
+    i = 0
+    while i < tam:
+        if intersec[i] == 1 and i != ini:
+            return False
+        i += 1
+    return True
+
+
 def vec_ver(vect, tam):     # Verifica se todas as posições do vetor auxiliar estão marcadas(=1)
     i = 0
     while i < tam:
@@ -52,18 +61,17 @@ def dfs(m, vert_ini, vect, s, tam):
     while i < tam:
         if m[vert_ini, i] == 1 and vect[i] == 0:
             s.append(vert_ini)
-            print(s[-1], i)
+            print("[", s[-1], "]", "[", i, "]")
             print()
             vect[vert_ini] = 1
             vert_ini = i
             i = -1
-        if i == 8:
+        if i == (tam-1):
             if len(s) != 0:
                 print("Voltando de ", vert_ini, " para ", s[-1])
                 print()
                 vect[vert_ini] = 1
-                vert_ini = s[-1]
-                s.pop()
+                vert_ini = s.pop()
                 i = -1
             elif not s and vec_ver(vect, tam) is False:
                 j = 0
@@ -83,10 +91,10 @@ def dfs(m, vert_ini, vect, s, tam):
 
 
 def bfs(m, vert_ini, vect, q, tam):
-    # q.append(vert_ini)
-    # vect[vert_ini] = 1
-    # print("Marcou: ", vert_ini)
-    # print()
+    q.append(vert_ini)
+    vect[vert_ini] = 1
+    print("Marcou: ", vert_ini)
+    print()
     i = 0
     while i < tam:
         if m[vert_ini, i] == 1 and vect[i] == 0:
@@ -95,7 +103,7 @@ def bfs(m, vert_ini, vect, q, tam):
             print("Marcou: ", i)
             print()
             i = -1
-        if i == 8:
+        if i == (tam-1):
             if len(q) != 0:
                 vect[i] = 1
                 vert_ini = q.pop(0)
@@ -236,7 +244,7 @@ def swcs(op):   # Switch case do menu
                     break
             return ini
         if case(6):
-            connect(tam, vectDir, vectInv, vert_ini);
+            connect(tam, vectDir, vectInv, vert_ini, vect);
             return 0
         if case(7):
             print("FECHE A JANELA ANTES DE CONTINUAR!")
@@ -260,13 +268,8 @@ def drawGraph(tam, m):      # Desenha conexões do grafo
 
     plt.draw()
 
-    plt.subplot(121)
     nx.draw_networkx(graph, with_labels=True, font_weight='bold')
     plt.title('Grafo Orientado')
-
-    plt.subplot(122)
-    nx.draw_networkx(graph.to_undirected(), with_labels=True, font_weight='bold')
-    plt.title('Grafo não Orientado')
 
     # Config fullscreen para TkAgg manager
     manager = plt.get_current_fig_manager()
@@ -278,7 +281,7 @@ def drawGraph(tam, m):      # Desenha conexões do grafo
     os.system('cls')
 
 
-def connect(tam, vectDir, vectInv, vert_ini):   # Verifica se o grafo é conexo e identifica os subgrafos
+def connect(tam, vectDir, vectInv, vert_ini, vect):   # Verifica se o grafo é conexo e identifica os subgrafos
     intersec = np.zeros((tam, 1))       # Vetor de intersecção entre transitivo direto e inverso
     sub = np.zeros((tam, 1))        # Vetor de subgrafos
 
@@ -286,9 +289,7 @@ def connect(tam, vectDir, vectInv, vert_ini):   # Verifica se o grafo é conexo 
 
     i = 0
     while i < tam:
-        if vectDir[i] != 0 and i != vert_ini:
-            intersec[i] = 1
-        elif vectInv[i] != 0 and i != vert_ini:
+        if vectDir[i] != 0 and i != vert_ini and vectInv[i] != 0:
             intersec[i] = 1
         i += 1
     if vec_ver(intersec, tam):
@@ -298,27 +299,33 @@ def connect(tam, vectDir, vectInv, vert_ini):   # Verifica se o grafo é conexo 
         print("O grafo não é conexo!")
         print()
 
+        if only_ini(intersec, tam, vert_ini):
+            print("Subgrafo:")
+            print()
+            print(vert_ini)
+            print()
+
         j = 0
         while j < tam:
             if intersec[j] == 0 and sub[j] == 0:
                 np.copyto(vectDir, tranDir(m, tam, vect, j, s, vectDir, 0))
+                vect = np.zeros((tam, 1)).astype('int64')  # Zera vect
                 np.copyto(vectInv, tranInv(m, tam, vect, j, s, vectInv, 0))
+                vect = np.zeros((tam, 1)).astype('int64')  # Zera vect
 
                 print("Subgrafo:")
                 print()
                 print(j)
                 i = 0
                 while i < tam:
-                    if vectDir[i] != 0 and i != j and sub[i] != 1:
-                        sub[i] = 1
-                        print(i)
-                    elif vectInv[i] != 0 and i != j and sub[i] != 1:
+                    if vectDir[i] != 0 and i != j and sub[i] != 1 and vectInv[i] != 0:
                         sub[i] = 1
                         print(i)
                     i += 1
                 if ver_sub(vectDir, vectInv, tam, sub):
                     print("É fortemente conexo!")
                     print()
+                print()
             j += 1
         print("Todos os subgrafos foram encontrados")
         print()
@@ -335,25 +342,49 @@ while True:
 m = np.zeros(shape=(tam, tam))  # Cria matriz quadrática de zeros com o tamanho especificado
 os.system('cls')
 
-for i in range(tam):
-    for j in range(tam):
-        while True:
-            m[i][j] = int(input('Insira o valor da posição {}{} : '.format(i, j)))
-            print()
-            if m[i][j] > 1 or m[i][j] < 0:
-                print("Valor inválido! Insira apenas 0 ou 1.")
-            elif tam == 1 and m[i][j] == 0:
-                print("A matriz não pode ser vazia!")
-            else:
-                break
+
+'''print("ADICIONE OS VÉRTICES: ")
+print()
+
+end = 1
+while end != 0:
+    while True:
+        x = int(input('Linha(0 a {}): '.format((tam-1)) ))
+        print()
+        if x > (tam-1) or x < 0:
+            print("Valor inválido!")
+        else:
+            break
+    while True:
+        y = int(input('Coluna(0 a {}): '.format((tam-1)) ))
+        print()
+        if y > (tam-1) or y < 0:
+            print("Valor inválido!")
+        else:
+            break
+    
+    m[x][y] = 1
+    
+    while True:
+        end = int(input("Deseja adicionar mais algum vértice (Sim[1]/Não[0]): "))
+        print()
+        if end < 0 or end > 1:
+            print("Valor inválido! Deve ser 0 ou 1")
+        else:
+            break
+    os.system('cls')'''
+
 
 os.system('cls')
+'''m = np.array([[1,1,1],[0,0,0],[0,1,0]]).astype(int)'''
+m = np.array([[0,1,1,0,0,0,0,0], [0,0,1,1,0,0,0,0], [0,0,0,0,0,1,1,1], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0]]).astype(int)
 print(m)
 print()
 
 '''m = np.array([[0,0,0,0,1,1,1,0,1],[0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,1,0],
               [1,0,0,0,0,1,0,0,1],[1,0,0,0,1,0,0,0,1], [1,1,0,0,0,0,0,0,0], [0,0,1,1,0,0,0,0,0], [1,0,0,0,1,1,0,0,0]]).astype(int)
 m = np.array([[0,1,0,0,0,0], [1,0,0,0,0,0], [0,0,0,1,0,0], [0,0,1,0,0,0], [0,0,0,0,0,1], [0,0,0,0,1,0]]).astype(int)
+
 print(m)
 print()'''
 
@@ -370,6 +401,8 @@ while True:
         print("Valor inválido!")
     else:
         break
+
+os.system('cls')
 
 end = 0
 

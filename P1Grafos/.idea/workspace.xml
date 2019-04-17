@@ -13,17 +13,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+            <state relative-caret-position="171">
+              <caret line="379" column="178" lean-forward="true" selection-start-line="379" selection-start-column="178" selection-end-line="379" selection-end-column="178" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#171#212#0" />
                 <element signature="e#238#427#0" />
+                <element signature="e#468#550#0" />
                 <element signature="e#531#636#0" />
                 <element signature="e#732#877#0" />
                 <element signature="e#971#1091#0" />
-                <element signature="e#1134#2113#0" />
-                <element signature="e#2156#3132#0" />
+                <element signature="e#1134#2097#0" />
+                <element signature="e#2140#3114#0" />
+                <element signature="e#3197#4447#0" />
+                <element signature="e#4528#5751#0" />
+                <element signature="e#5679#7104#0" />
+                <element signature="e#7167#7784#0" />
+                <element signature="e#7896#9314#0" />
               </folding>
             </state>
           </provider>
@@ -65,6 +71,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -76,7 +83,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -169,14 +175,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13606341" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14008042" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Python Console" order="1" weight="0.32931727" />
-      <window_info anchor="bottom" id="Debug" order="2" weight="0.39779004" />
+      <window_info anchor="bottom" id="Debug" order="2" weight="0.35911602" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.32872927" />
       <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" weight="0.12016574" />
       <window_info anchor="bottom" id="Message" order="5" />
@@ -187,17 +192,21 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" x="21" y="267" width="1513" height="309" id="Run" order="3" weight="0.2947761" />
+      <window_info anchor="right" x="21" y="267" width="1513" height="309" id="Run" order="3" weight="0.35254693" />
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>293</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python36_64/Lib/urllib/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="788" selection-start-line="788" selection-end-line="788" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python36_64/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -251,18 +260,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
+        <state relative-caret-position="171">
+          <caret line="379" column="178" lean-forward="true" selection-start-line="379" selection-start-column="178" selection-end-line="379" selection-end-column="178" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#171#212#0" />
             <element signature="e#238#427#0" />
+            <element signature="e#468#550#0" />
             <element signature="e#531#636#0" />
             <element signature="e#732#877#0" />
             <element signature="e#971#1091#0" />
-            <element signature="e#1134#2113#0" />
-            <element signature="e#2156#3132#0" />
+            <element signature="e#1134#2097#0" />
+            <element signature="e#2140#3114#0" />
+            <element signature="e#3197#4447#0" />
+            <element signature="e#4528#5751#0" />
+            <element signature="e#5679#7104#0" />
+            <element signature="e#7167#7784#0" />
+            <element signature="e#7896#9314#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python36_64/Lib/urllib/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14742">
+          <caret line="821" selection-start-line="821" selection-end-line="821" />
         </state>
       </provider>
     </entry>
